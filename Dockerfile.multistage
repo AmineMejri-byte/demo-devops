@@ -1,0 +1,63 @@
+# ============================================================
+# Étape 1 : Build de l'application
+# ============================================================
+
+FROM maven:3.9-eclipse-temurin-17-alpine AS builder
+
+# Répertoire de travail
+WORKDIR /build
+
+# Copier uniquement le pom.xml d'abord.
+# La couche des dépendances n'est reconstruite
+# que si le pom.xml change (cache Docker).
+COPY pom.xml .
+
+# Télécharger les dépendances Maven
+RUN mvn dependency:go-offline -B
+
+# Copier le code source
+COPY src ./src
+
+# Compiler et générer le JAR
+RUN mvn clean package -DskipTests
+
+
+# ============================================================
+# Étape 2 : Image finale d'exécution
+# ============================================================
+
+FROM eclipse-temurin:17-jre-alpine
+
+# Utilisateur non-root :
+# bonne pratique de sécurité Docker
+RUN addgroup -S beestore && \
+    adduser -S beestore -G beestore
+
+# Répertoire de travail
+WORKDIR /app
+
+# Copier le JAR depuis l'étape de build
+COPY --from=builder /build/target/beestore-1.0.0.jar app.jar
+
+# Donner la propriété du fichier à l'utilisateur beestore
+RUN chown beestore:beestore app.jar
+
+# Exécuter l'application avec un utilisateur non-root
+USER beestore
+
+# Port exposé
+EXPOSE 8080
+
+# Vérification de l'état de santé de l'application
+HEALTHCHECK \
+    --interval=30s \
+    --timeout=3s \
+    --start-period=20s \
+    --retries=3 \
+    CMD wget --no-verbose \
+        --tries=1 \
+        --spider \
+        http://localhost:8080/actuator/health || exit 1
+
+# Commande de démarrage
+ENTRYPOINT ["java", "-jar", "app.jar"]
