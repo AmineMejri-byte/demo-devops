@@ -40,14 +40,14 @@
         <java.version>17</java.version>
 
         <!-- Connexion SonarCloud -->
-        <sonar.projectKey>amdouni-bilel_beestore-java</sonar.projectKey>
-        <sonar.organization>amdouni-bilel</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+<!--        <sonar.projectKey>amdouni-bilel_beestore-java</sonar.projectKey>-->
+<!--        <sonar.organization>amdouni-bilel</sonar.organization>-->
+<!--        <sonar.host.url>https://sonarcloud.io</sonar.host.url>-->
 
-        <!-- Indique à SonarCloud où trouver le rapport JaCoCo -->
-        <sonar.coverage.jacoco.xmlReportPaths>
-            target/site/jacoco/jacoco.xml
-        </sonar.coverage.jacoco.xmlReportPaths>
+<!--        &lt;!&ndash; Indique à SonarCloud où trouver le rapport JaCoCo &ndash;&gt;-->
+<!--        <sonar.coverage.jacoco.xmlReportPaths>-->
+<!--            target/site/jacoco/jacoco.xml-->
+<!--        </sonar.coverage.jacoco.xmlReportPaths>-->
 
     </properties>
 
@@ -108,6 +108,8 @@
             <optional>true</optional>
         </dependency>
 
+
+
         <!-- Tests -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -121,6 +123,24 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>7.18.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>7.18.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>7.18.0</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
@@ -186,27 +206,22 @@
 <!--                        <goals>-->
 <!--                            <goal>check</goal>-->
 <!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <rules>-->
-<!--                                <rule>-->
-<!--                                    <element>BUNDLE</element>-->
-<!--                                    <limits>-->
-<!--                                        <limit>-->
-<!--                                            <counter>LINE</counter>-->
-<!--                                            <value>COVEREDRATIO</value>-->
-<!--                                            <minimum>0.70</minimum>-->
-<!--                                        </limit>-->
-<!--                                    </limits>-->
-<!--                                </rule>-->
-<!--                            </rules>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
+    <!--                        <configuration>-->
+    <!--                            <rules>-->
+    <!--                                <rule>-->
+    <!--                                    <element>BUNDLE</element>-->
+    <!--                                    <limits>-->
+    <!--                                        <limit>-->
+    <!--                                            <counter>LINE</counter>-->
+    <!--                                            <value>COVEREDRATIO</value>-->
+    <!--                                            <minimum>0.70</minimum>-->
+    <!--                                        </limit>-->
+    <!--                                    </limits>-->
+    <!--                                </rule>-->
+    <!--                            </rules>-->
+    <!--                        </configuration>-->
+    <!--                    </execution>-->
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-
             </plugin>
 
         </plugins>

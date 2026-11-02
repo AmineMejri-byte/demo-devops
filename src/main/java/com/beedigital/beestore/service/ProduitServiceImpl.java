@@ -105,6 +105,12 @@ public class ProduitServiceImpl implements ProduitService {
                 .stream().map(this::mapToResponseDTO).collect(Collectors.toList());
     }
 
+    @Override
+    public List<ProduitResponseDTO> getProduitsEnRuptureDeStock() {
+        return produitRepository.findByStock(0)
+                .stream().map(this::mapToResponseDTO).collect(Collectors.toList());
+    }
+
     // ---------------------------------------------------------
     // MAPPING PRIVE : DTO <-> Entity
     // ---------------------------------------------------------

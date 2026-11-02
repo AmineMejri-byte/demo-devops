@@ -24,5 +24,6 @@ public interface ProduitRepository extends JpaRepository<Produit, Long> {
     List<Produit> findByPrixBetween(@Param("min") Double min,
                                     @Param("max") Double max);
 
+    List<Produit> findByStock(Integer stock);
 }
 
