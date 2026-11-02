@@ -27,6 +27,7 @@ public class ProduitController {
 
     private final ProduitService produitService;
 
+    // POST /api/v1/produits
     @PostMapping
     @Operation(summary = "Créer un nouveau produit")
     @ApiResponses({
@@ -38,6 +39,8 @@ public class ProduitController {
 
         log.info("[CONTROLLER] POST /api/v1/produits");
 
+        // @Valid déclenche la validation AVANT d’appeler le service
+        log.info("[CONTROLLER] POST /api/v1/produits");
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(produitService.creerProduit(requestDTO));
@@ -52,6 +55,15 @@ public class ProduitController {
         return ResponseEntity.ok(produitService.getTousProduits());
     }
 
+    // GET /api/v1/produits
+    @GetMapping
+    @Operation(summary = "Récupérer tous les produits")
+    public ResponseEntity<List<ProduitResponseDTO>> getTousProduits() {
+        log.info("[CONTROLLER] GET /api/v1/produits");
+        return ResponseEntity.ok(produitService.getTousProduits());
+    }
+
+    // GET /api/v1/produits/{id}
     @GetMapping("/{id}")
     @Operation(summary = "Récupérer un produit par son ID")
     @ApiResponses({
@@ -67,6 +79,11 @@ public class ProduitController {
         return ResponseEntity.ok(produitService.getProduitById(id));
     }
 
+        log.info("[CONTROLLER] GET /api/v1/produits/{}", id);
+        return ResponseEntity.ok(produitService.getProduitById(id));
+    }
+
+    // PUT /api/v1/produits/{id}
     @PutMapping("/{id}")
     @Operation(summary = "Modifier un produit existant")
     public ResponseEntity<ProduitResponseDTO> modifierProduit(
@@ -90,6 +107,20 @@ public class ProduitController {
         return ResponseEntity.noContent().build();
     }
 
+        log.info("[CONTROLLER] PUT /api/v1/produits/{}", id);
+        return ResponseEntity.ok(produitService.modifierProduit(id, requestDTO));
+    }
+
+    // DELETE /api/v1/produits/{id}
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Supprimer un produit")
+    public ResponseEntity<Void> supprimerProduit(@PathVariable Long id) {
+        log.info("[CONTROLLER] DELETE /api/v1/produits/{}", id);
+        produitService.supprimerProduit(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // GET /api/v1/produits/search?categorie=...&nom=...
     @GetMapping("/search")
     @Operation(summary = "Rechercher des produits par catégorie ou nom")
     public ResponseEntity<List<ProduitResponseDTO>> rechercher(
@@ -117,4 +148,7 @@ public class ProduitController {
         return ResponseEntity.ok(
                 produitService.getProduitsEnRuptureDeStock());
     }
+        return ResponseEntity.ok(produitService.getTousProduits());
+    }
+
 }

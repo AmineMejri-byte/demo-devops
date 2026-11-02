@@ -41,3 +41,5 @@ public class ProduitStepDefinitions {
         assertThat(produitCree.getNom()).isEqualTo(nomAttendu);
     }
 }
+public class ProduitStepDefinitions {
+}

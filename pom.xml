@@ -48,6 +48,14 @@
 <!--        <sonar.coverage.jacoco.xmlReportPaths>-->
 <!--            target/site/jacoco/jacoco.xml-->
 <!--        </sonar.coverage.jacoco.xmlReportPaths>-->
+        <sonar.projectKey>amdouni-bilel_beestore-java</sonar.projectKey>
+        <sonar.organization>amdouni-bilel</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
+        <!-- Indique à SonarCloud où trouver le rapport JaCoCo -->
+        <sonar.coverage.jacoco.xmlReportPaths>
+            target/site/jacoco/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
 
     </properties>
 
@@ -222,6 +230,11 @@
     <!--                        </configuration>-->
     <!--                    </execution>-->
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+
             </plugin>
 
         </plugins>
